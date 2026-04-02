@@ -6,6 +6,7 @@
 ## 🚀 Overview
 
 **AI Health Assistant** is a modern, responsive web application powered by Google Gemini AI. It provides 24/7 health support through:
+*Codecure - AI Hackathon*
 
 - **AI Chatbot**: Instant medical guidance and health queries
 - **Symptom Checker**: AI-powered symptom analysis
