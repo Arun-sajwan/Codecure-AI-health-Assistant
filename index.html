@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Health Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile-nav.css">
+    <link rel="stylesheet" href="medicine-styles.css">
+    <link rel="stylesheet" href="chatbot-styles.css">
+    <link rel="stylesheet" href="symptom-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Navbar -->
+    <header id="top-navbar" class="top-navbar">
+        <div class="navbar-content">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <span>AI Health Assistant</span>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation (hidden on mobile ) -->
+    <nav id="sidebar" class="sidebar-overlay">
+        <div class="sidebar-header">
+            <i class="fas fa-times close-sidebar"></i>
+        </div>
+        <div class="logo">
+            <i class="fas fa-heartbeat"></i>
+            <span>AI Health</span>
+        </div>
+        <ul>
+            <li><a href="#" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#" data-page="symptom"><i class="fas fa-notes-medical"></i> Symptom Checker</a></li>
+            <li><a href="#" data-page="chatbot"><i class="fas fa-comments"></i> Chatbot</a></li>
+            <li><a href="#" data-page="medicine"><i class="fas fa-pills"></i> Medicine Reminder</a></li>
+            <li><a href="#" data-page="profile"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="#" id="theme-toggle" class="theme-toggle"><i class="fas fa-dark"></i> Dark Mode</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <h1>AI Health Assistant</h1>
+                <p>Your personal AI-powered health companion. Get instant medical advice, track medications, and check symptoms 24/7.</p>
+                <button id="start-chat" class="btn-primary">
+                    <i class="fas fa-comments"></i> Start Chatting
+                </button>
+            </div>
+        </section>
+
+        <!-- Redesigned Symptom Checker -->
+        <section id="symptom" class="page">
+            <h2><i class="fas fa-notes-medical"></i> Symptom Checker</h2>
+            <div class="symptom-container">
+                <form class="form-card symptom-form" id="symptom-form">
+                    <div class="symptom-input-group">
+                        <label for="symptom-desc">Describe your symptoms:</label>
+                        <textarea id="symptom-desc" placeholder="Fever, headache, cough, fatigue... Include duration and severity" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-search-medical"></i> Analyze Symptoms with AI
+                    </button>
+                </form>
+                
+                <!-- AI Response -->
+                <div id="symptom-analysis" class="analysis-card hidden">
+                    <div class="analysis-header">
+                        <h3><i class="fas fa-robot"></i> AI Analysis</h3>
+                        <div class="loading hidden" id="symptom-loading">
+                            <i class="fas fa-spinner fa-spin"></i> Analyzing your symptoms...
+                        </div>
+                    </div>
+                    <div id="symptom-results" class="analysis-results"></div>
+                    <button id="new-symptom-analysis" class="btn-secondary">New Analysis</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Clean Chatbot -->
+        <section id="chatbot" class="page">
+            <div class="chat-headline">
+                <h2><i class="fas fa-comments"></i> AI Health Copilot</h2>
+                <p>Instant medical guidance in a modern AI interface. Ask, receive, and act with confidence.</p>
+            </div>
+
+            <div class="chat-card">
+                <div class="chat-header">
+                    <div class="chat-title">
+                        <span class="status-dot online"></span>
+                        <span>AI is ready</span>
+                    </div>
+                    <div class="chat-meta">
+                        <span>Response time: <strong>~1s</strong></span>
+                        <span>Mode: <strong>Health Coach</strong></span>
+                    </div>
+                </div>
+
+                <div class="chat-toolbar">
+                    <button class="quick-btn" data-prompt="What are common flu symptoms?">Flu Symptoms</button>
+                    <button class="quick-btn" data-prompt="How should I manage mild headache?">Headache help</button>
+                    <button class="quick-btn" data-prompt="What can I do for better sleep?">Sleep tips</button>
+                    <button class="quick-btn" data-prompt="Tell me first-aid for a small burn." >First-aid</button>
+                </div>
+
+                <div id="chat-messages" class="chat-messages"></div>
+
+                <div id="typing-indicator" class="typing hidden">
+                    <span class="typing-avatar"><i class="fas fa-robot"></i></span>
+                    <div class="typing-dots">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    </div>
+                </div>
+
+                <form id="chat-form" class="chat-input">
+                    <input type="text" id="message-input" placeholder="Type your health question..." autocomplete="off" required>
+                    <button type="submit" class="btn-send"><i class="fas fa-paper-plane"></i></button>
+                </form>
+
+                <div class="chat-footbar">
+                    <button id="clear-chat" class="btn-clear">Clear Chat</button>
+                    <button id="export-chat" class="btn-secondary" type="button">Export Log</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Medicine Tracker -->
+        <section id="medicine" class="page">
+            <div class="medicine-hero">
+                <h2><i class="fas fa-pills"></i> Medicine Tracker</h2>
+                <p class="hero-subtitle">Never miss a dose. Track medications with smart notifications.</p>
+                <div class="med-stats">
+                    <div class="stat-card">
+                        <span class="stat-number" id="today-meds">0</span>
+                        <span>Today's Doses</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="upcoming-meds">0</span>
+                        <span>Upcoming</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Advanced Add Form -->
+            <form class="med-form-advanced" id="medicine-form">
+                <div class="form-row">
+                    <input type="text" id="med-name" placeholder="Medicine name (e.g., Aspirin)" required>
+                    <input type="number" id="med-dosage" placeholder="Dosage (e.g., 100mg)" min="0" step="0.1">
+                </div>
+                <div class="form-row">
+                    <input type="time" id="med-time" required>
+                        <select id="med-frequency">
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="as-needed">As Needed</option>
+                        </select>
+                </div>
+                <textarea id="med-notes" placeholder="Notes / Instructions (optional)"></textarea>
+                <button type="submit" class="btn-primary"><i class="fas fa-plus"></i> Add Medication</button>
+            </form>
+            
+            <!-- Upcoming Timeline -->
+            <div class="upcoming-timeline">
+                <h3>Upcoming Today</h3>
+                <div id="timeline-list" class="timeline-container"></div>
+            </div>
+            
+            <!-- All Medications Cards -->
+            <div class="med-grid" id="medicine-grid">
+                <!-- Cards populated by JS -->
+            </div>
+            
+            <div id="empty-state" class="empty-state">
+                <i class="fas fa-pills"></i>
+                <h3>No Medications Yet</h3>
+                <p>Add your first medication to get started with reminders!</p>
+            </div>
+        </section>
+
+        <!-- Profile -->
+        <section id="profile" class="page">
+            <h2><i class="fas fa-user"></i> Profile</h2>
+            <form class="form-card">
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email">
+                <input type="date" placeholder="Date of Birth">
+                <button type="submit" class="btn-primary">Save Profile</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="titl"><i class="fas fa-heartbeat"></i> AI Health Assistant</h3>
+                <p>Your 24/7 AI-powered health companion that helps you monitor symptoms, track medications, get instant medical insights, and maintain better health through intelligent recommendations.</p>
+            </div>
+            <div class="footer-section">
+                <h4 class="titl">Features</h4>
+                <ul>
+                    <li><i class="fas fa-comments"></i> Smart Chatbot</li>
+                    <li><i class="fas fa-pills"></i> Medicine Tracker</li>
+                    <li><i class="fas fa-notes-medical"></i> Symptom Analysis</li>
+                    <li><i class="fas fa-chart-line"></i> Health Insights</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 class="titl">How It Helps</h4>
+                <p>✅ Instant symptom checking &amp; advice<br>
+                    ✅ Medication reminders &amp; tracking<br>
+                    ✅ Personalized health insights<br>
+                    ✅ 24/7 AI medical assistant<br>
+                    ✅ Better health outcomes</p>
+            </div>
+            <div class="footer-section">
+                <h4>Disclaimer</h4>
+                <p>Not a substitute for professional medical advice. Always consult healthcare professionals.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Arun Sajwan & Ajay jalal<br> 2026 AI Health Assistant. Built with <i class="fas fa-heart"></i> for better health.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
