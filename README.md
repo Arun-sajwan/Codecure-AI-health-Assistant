@@ -123,7 +123,7 @@ POST http://127.0.0.1:5000/chat
 ## 📱 Screenshots
 
 **Home & Chatbot**  
-![Home](screenshot/home-page.jpeg) ![Chatbot](screenshot/chatbot.jpeg)
+![Home](screenshot/home-page.jpeg) ![Chatbot](screenshot/chatbot1.jpeg)
 
 **Symptom Checker**  
 ![Symptoms](screenshot/symptom-checker.jpeg)
