@@ -2,11 +2,11 @@
 
 [![Python 3.8+](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![Flask](https://img.shields.io/badge/Flask-2.0%2B-brightgreen.svg)](https://flask.palletsprojects.com/)
-
+**Codecure - AI Hackathon**
 ## 🚀 Overview
 
 **AI Health Assistant** is a modern, responsive web application powered by Google Gemini AI. It provides 24/7 health support through:
-*Codecure - AI Hackathon*
+
 
 - **AI Chatbot**: Instant medical guidance and health queries
 - **Symptom Checker**: AI-powered symptom analysis
